@@ -33,15 +33,30 @@ export const useStyles = makeStyles((theme) => ({
   gridItem: {
     width: '100%',
   },
-  textFieldContainer: {
-    marginBottom: '1%',
+  cardCommentContainer: {
+    backgroundColor: '#f7f7f7',
+    width: '100%',
+    padding: '1%',
+    margin: '4% 0 4% 0',
+    border: '1px solid rgba(66, 103, 178, 0.12)',
+    borderTop: '5px solid #4267B2',
+  },
+  textField: {
+    backgroundColor: 'white',
+  },
+  submit: {
+    borderRadius: theme.shape.borderRadius,
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginTop: '1%',
   },
   cardContainer: {
     backgroundColor: '#f7f7f7',
     margin: '0 0 2% 0',
     padding: '1%',
-    width: 'fit-content',
-    border: '2px solid rgba(66, 103, 178, 0.12)',
+    width: '100%',
+    border: '1px solid rgba(66, 103, 178, 0.12)',
+    borderTop: '5px solid #4267B2',
   },
   cardContent: {
     margin: 0,
@@ -49,6 +64,6 @@ export const useStyles = makeStyles((theme) => ({
     '&:last-child': {
       paddingBottom: 0,
     },
-    width: 'fit-content',
+    width: '100%',
   },
 }));

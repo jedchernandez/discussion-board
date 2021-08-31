@@ -1,4 +1,5 @@
 import { Box, Button, CssBaseline, Grid, Paper, TextField, Typography } from '@material-ui/core';
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { useStyles } from './useStyles';
 
@@ -24,8 +25,8 @@ export const LandingPage = () => {
           className={classes.gridItemContainer}
         >
           <Grid item className={classes.gridItem}>
-            <Typography align="center" color="primary" variant="h3">
-              Welcome Back!
+            <Typography align="center" color="primary" variant="h4">
+              Login to your Discussion Board Account
             </Typography>
           </Grid>
           <Grid item className={classes.gridItem}>
@@ -35,13 +36,16 @@ export const LandingPage = () => {
               size="medium"
               fullWidth
               margin="normal"
+              autoFocus
               autoComplete="true"
               color="primary"
+              variant="outlined"
               label={
-                <Typography color="primary" variant="h6">
+                <Typography gutterBottom color="primary" variant="h6">
                   Email
                 </Typography>
               }
+              name="email"
             />
           </Grid>
           <Grid item className={classes.gridItem}>
@@ -53,11 +57,13 @@ export const LandingPage = () => {
               margin="normal"
               autoComplete="true"
               color="primary"
+              variant="outlined"
               label={
-                <Typography color="primary" variant="h6">
+                <Typography gutterBottom color="primary" variant="h6">
                   Password
                 </Typography>
               }
+              name="password"
             />
           </Grid>
           <Grid item className={classes.gridItem}>

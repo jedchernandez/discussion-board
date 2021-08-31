@@ -11,6 +11,7 @@ export const theme = createTheme({
   },
   palette: {
     primary: { main: '#4267B2' },
+    secondary: {main: "#dfe3ee"}
   },
   shape: {
     borderRadius: 10,
