@@ -2,7 +2,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
   gridContainer: {
+    padding: 0,
+    margin: '1%',
     minHeight: `calc(100vh - 70px)`,
+    [theme.breakpoints.down(600)]: {
+      width: '98vw',
+      height: '98vh',
+    },
   },
   paperContainer: {
     rounded: 'true',
@@ -12,10 +18,8 @@ export const useStyles = makeStyles((theme) => ({
       width: 500,
     },
     [theme.breakpoints.down(600)]: {
-      width: 350,
-    },
-    [theme.breakpoints.down(420)]: {
-      width: 250,
+      width: '98vw',
+      height: '98vh',
     },
   },
   gridItemContainer: {

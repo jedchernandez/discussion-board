@@ -7,6 +7,7 @@ export const LandingPage = () => {
   return (
     <Grid
       container
+      wrap="nowrap"
       justifyContent="space-around"
       alignItems="center"
       component="main"
@@ -17,12 +18,13 @@ export const LandingPage = () => {
         <Grid
           container
           direction="column"
+          wrap="nowrap"
           alignItems="center"
           justifyContent="space-evenly"
           className={classes.gridItemContainer}
         >
           <Grid item className={classes.gridItem}>
-            <Typography align="center" variant="h3">
+            <Typography align="center" color="primary" variant="h3">
               Welcome Back!
             </Typography>
           </Grid>
@@ -34,7 +36,12 @@ export const LandingPage = () => {
               fullWidth
               margin="normal"
               autoComplete="true"
-              label={<Typography variant="h6">Email</Typography>}
+              color="primary"
+              label={
+                <Typography color="primary" variant="h6">
+                  Email
+                </Typography>
+              }
             />
           </Grid>
           <Grid item className={classes.gridItem}>
@@ -45,7 +52,12 @@ export const LandingPage = () => {
               fullWidth
               margin="normal"
               autoComplete="true"
-              label={<Typography variant="h6">Password</Typography>}
+              color="primary"
+              label={
+                <Typography color="primary" variant="h6">
+                  Password
+                </Typography>
+              }
             />
           </Grid>
           <Grid item className={classes.gridItem}>
