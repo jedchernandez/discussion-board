@@ -29,6 +29,9 @@ export const useStyles = makeStyles((theme) => ({
   gridItem: {
     width: '100%',
   },
+  textField: {
+    width: '100%',
+  },
   submit: {
     margin: theme.spacing(3, 2, 2),
     padding: 10,

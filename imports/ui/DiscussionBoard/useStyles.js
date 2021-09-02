@@ -39,7 +39,7 @@ export const useStyles = makeStyles((theme) => ({
     padding: '1%',
     margin: '4% 0 4% 0',
     border: '1px solid rgba(66, 103, 178, 0.12)',
-    borderTop: '5px solid #4267B2',
+    borderTop: '5px solid #dfe3ee',
   },
   textField: {
     backgroundColor: 'white',
@@ -56,7 +56,7 @@ export const useStyles = makeStyles((theme) => ({
     padding: '1%',
     width: '100%',
     border: '1px solid rgba(66, 103, 178, 0.12)',
-    borderTop: '5px solid #4267B2',
+    borderTop: '5px solid #dfe3ee',
   },
   cardContent: {
     margin: 0,

@@ -1,9 +1,26 @@
-import { Box, Button, Card, CardContent, CssBaseline, Grid, Paper, TextField, Typography } from '@material-ui/core';
+import { Box, Button, Card, CssBaseline, Grid, Paper, TextField, Typography } from '@material-ui/core';
+import { useTracker } from 'meteor/react-meteor-data';
 import React from 'react';
+import { CommentsCollection } from '../../db/collections';
+import { Comments } from './Comments';
 import { useStyles } from './useStyles';
 
 export const DiscussionBoard = () => {
+  Meteor.subscribe('postAllComments');
   const classes = useStyles();
+  const user = useTracker(() => Meteor.user());
+
+  const [comment, setComment] = React.useState('');
+
+  const handleCommentSubmit = (event) => {
+    event.preventDefault();
+
+    if (!comment) return;
+    Meteor.call('postComment', { comment, emailId: user.profile.emailId });
+
+    setComment('');
+  };
+  const comments = useTracker(() => CommentsCollection.find({}, { sort: { createdAt: -1 } }).fetch());
   return (
     <Grid
       container
@@ -30,47 +47,39 @@ export const DiscussionBoard = () => {
               Discussion Board
             </Typography>
           </Grid>
-          <Card variant="outlined" className={classes.cardCommentContainer} children>
-            <Grid item className={classes.gridItem}>
-              <TextField
-                id="email"
-                placeholder="Write a comment..."
-                size="medium"
-                fullWidth
-                margin="none"
-                color="primary"
-                variant="outlined"
-                autoFocus
-                multiline
-                rows={4}
-                className={classes.textField}
-              />
-            </Grid>
-            <Box width="100%" display="flex" justifyContent="flex-end">
-              <Button size="small" type="submit" color="primary" variant="contained" className={classes.submit}>
-                Post Comment
-              </Button>
-            </Box>
-          </Card>
           <Grid item className={classes.gridItem}>
-            <Card variant="outlined" className={classes.cardContainer} children>
-              <CardContent className={classes.cardContent} children>
-                <Typography variant="body2">User Email Id#1</Typography>
-                <Typography variant="body1">User Comment#1</Typography>
-              </CardContent>
-            </Card>
+            <form onSubmit={handleCommentSubmit}>
+              <Card variant="outlined" className={classes.cardCommentContainer} children>
+                <Grid item className={classes.gridItem}>
+                  <TextField
+                    id="email"
+                    placeholder="Write a comment..."
+                    size="medium"
+                    fullWidth
+                    margin="none"
+                    color="primary"
+                    variant="outlined"
+                    name="email"
+                    autoFocus
+                    multiline
+                    rows={4}
+                    className={classes.textField}
+                    value={comment}
+                    onChange={(event) => setComment(event.target.value)}
+                  />
+                </Grid>
+                <Box width="100%" display="flex" justifyContent="flex-end">
+                  <Button size="small" type="submit" color="primary" variant="contained" className={classes.submit}>
+                    Post Comment
+                  </Button>
+                </Box>
+              </Card>
+            </form>
           </Grid>
           <Grid item className={classes.gridItem}>
-            <Card variant="outlined" className={classes.cardContainer} children>
-              <CardContent className={classes.cardContent} children>
-                <Typography variant="body2">User Email Id#2</Typography>
-                <Typography variant="body1">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus repudiandae porro vero suscipit.
-                  Doloremque quaerat itaque ea praesentium commodi earum repellendus enim quod amet cum perspiciatis,
-                  accusamus hic atque labore.
-                </Typography>
-              </CardContent>
-            </Card>
+            {comments.map((comment) => (
+              <Comments key={comment._id} comment={comment} />
+            ))}
           </Grid>
         </Grid>
       </Paper>

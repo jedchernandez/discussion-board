@@ -1,5 +1,3 @@
-import { Meteor } from 'meteor/meteor';
-
-Meteor.startup(() => {
-  // TODO: Update for user and comment collections
-});
+import '../imports/api/methods';
+import '../imports/api/publish';
+import '../imports/db/collections';
