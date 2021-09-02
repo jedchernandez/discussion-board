@@ -1,4 +1,5 @@
-import { Box, Button, Card, CssBaseline, Grid, Paper, TextField, Typography } from '@material-ui/core';
+import { Box, Button, Card, CssBaseline, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
+import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
@@ -13,12 +14,18 @@ export const DiscussionBoard = () => {
   const history = useHistory();
   const user = useTracker(() => Meteor.user());
 
-  if (!user) {
+  const loggedInUser = Meteor.userId();
+  if (!loggedInUser) {
     history.push('/');
   }
 
   const [comment, setComment] = React.useState('');
   const comments = useTracker(() => CommentsCollection.find({}, { sort: { createdAt: -1 } }).fetch());
+
+  const handleLogout = (event) => {
+    Meteor.logout();
+    history.push('/');
+  };
 
   const handleCommentSubmit = (event) => {
     event.preventDefault();
@@ -41,6 +48,13 @@ export const DiscussionBoard = () => {
     >
       <CssBaseline />
       <Paper elevation={10} variant="elevation" className={classes.paperContainer} children>
+        <Box display="flex" justifyContent="flex-end">
+          <Link underline="none" onClick={handleLogout}>
+            <Button size="small" color="primary" variant="contained" className={classes.logoutButton}>
+              Logout
+            </Button>
+          </Link>
+        </Box>
         <Grid
           container
           direction="column"
@@ -77,7 +91,7 @@ export const DiscussionBoard = () => {
                   />
                 </Grid>
                 <Box width="100%" display="flex" justifyContent="flex-end">
-                  <Button size="small" type="submit" color="primary" variant="contained" className={classes.submit}>
+                  <Button size="small" type="submit" color="primary" variant="contained" className={classes.button}>
                     Post Comment
                   </Button>
                 </Box>

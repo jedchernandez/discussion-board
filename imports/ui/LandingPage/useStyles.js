@@ -32,7 +32,7 @@ export const useStyles = makeStyles((theme) => ({
   textField: {
     width: '100%',
   },
-  submit: {
+  button: {
     margin: theme.spacing(3, 2, 2),
     padding: 10,
     width: 150,

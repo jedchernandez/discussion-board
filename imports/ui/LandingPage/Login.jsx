@@ -105,11 +105,11 @@ export const Login = () => {
                     history.push('/register');
                   }}
                 >
-                  <Button size="small" color="primary" variant="text" className={classes.submit}>
+                  <Button size="small" color="primary" variant="text" className={classes.button}>
                     Register
                   </Button>
                 </Link>
-                <Button type="submit" size="small" color="primary" variant="contained" className={classes.submit}>
+                <Button type="submit" size="small" color="primary" variant="contained" className={classes.button}>
                   Login
                 </Button>
               </Box>

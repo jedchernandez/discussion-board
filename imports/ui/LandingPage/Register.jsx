@@ -128,11 +128,11 @@ export const Register = () => {
                     history.push('/');
                   }}
                 >
-                  <Button size="small" color="primary" variant="text" className={classes.submit}>
+                  <Button size="small" color="primary" variant="text" className={classes.button}>
                     Login
                   </Button>
                 </Link>
-                <Button type="submit" size="small" color="primary" variant="contained" className={classes.submit}>
+                <Button type="submit" size="small" color="primary" variant="contained" className={classes.button}>
                   Register
                 </Button>
               </Box>

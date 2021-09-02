@@ -14,6 +14,7 @@ export const useStyles = makeStyles((theme) => ({
     rounded: 'true',
     padding: '2%',
     height: 700,
+    overflow: 'hidden',
     [theme.breakpoints.up('sm')]: {
       width: 700,
     },
@@ -44,7 +45,12 @@ export const useStyles = makeStyles((theme) => ({
   textField: {
     backgroundColor: 'white',
   },
-  submit: {
+  logoutButton: {
+    borderRadius: theme.shape.borderRadius,
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
+  button: {
     borderRadius: theme.shape.borderRadius,
     fontSize: 15,
     fontWeight: 'bold',
