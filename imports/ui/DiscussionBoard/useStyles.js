@@ -66,4 +66,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     width: '100%',
   },
+  comment: {
+    whiteSpace: 'pre-wrap',
+  },
 }));

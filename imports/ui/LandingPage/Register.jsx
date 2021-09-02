@@ -1,8 +1,8 @@
-import { Box, Button, CssBaseline, Grid, Paper, TextField, Typography } from '@material-ui/core';
+import { Box, Button, CssBaseline, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSnackBar } from '../../store/SnackBarContext';
+import { useSnackBar } from '../../context/SnackBarContext';
 import { useStyles } from './useStyles';
 
 export const Register = () => {
@@ -13,28 +13,41 @@ export const Register = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+  const login = (email, password) => {
+    Meteor.loginWithPassword(email, password, (error) => {
+      if (!error) {
+        history.push('/discussion-board');
+      } else {
+        console.error(error);
+        updateSnackBarMessage('New account successfully created!');
+      }
+    });
+  };
+
+  const handleRegisterError = ({ error, reason }) => {
+    if (error === 403 && reason === 'Email already exists.') {
+      updateSnackBarMessage('The email you provided already exists. Please use a different email address!');
+    } else {
+      updateSnackBarMessage('There was an error creating the account.');
+    }
+    console.error(reason);
+  };
+
   const handleRegisterSubmit = (event) => {
     event.preventDefault();
+
+    if (!email || !password) {
+      updateSnackBarMessage(`Please don't forget to provide an email and password!`);
+      return;
+    }
 
     Meteor.call('registerUser', { email, password }, (error) => {
       if (!error) {
         updateSnackBarMessage('New account successfully created!');
 
-        Meteor.loginWithPassword(email, password, (error) => {
-          if (!error) {
-            history.push('/discussion-board');
-          } else {
-            console.error(error);
-            updateSnackBarMessage('New account successfully created!');
-          }
-        });
+        login(email, password);
       } else {
-        if (error.error === 403 && error.reason === 'Email already exists.') {
-          updateSnackBarMessage('The email you provided already exists. Please use a different email address!');
-        } else {
-          updateSnackBarMessage('There was an error creating the account.');
-        }
-        console.error(error.reason);
+        handleRegisterError(error);
       }
     });
   };
@@ -108,11 +121,19 @@ export const Register = () => {
             </Grid>
             <Grid item className={classes.gridItem}>
               <Box display="flex" flexDirection="row nowrap" alignItems="center" justifyContent="center">
+                <Link
+                  underline="none"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    history.push('/');
+                  }}
+                >
+                  <Button size="small" color="primary" variant="text" className={classes.submit}>
+                    Login
+                  </Button>
+                </Link>
                 <Button type="submit" size="small" color="primary" variant="contained" className={classes.submit}>
                   Register
-                </Button>
-                <Button href="/" size="small" color="primary" variant="text" className={classes.submit}>
-                  Login
                 </Button>
               </Box>
             </Grid>

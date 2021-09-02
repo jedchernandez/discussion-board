@@ -1,15 +1,13 @@
-import { Box, Button, CssBaseline, Grid, Paper, TextField, Typography } from '@material-ui/core';
+import { Box, Button, CssBaseline, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
 import { Meteor } from 'meteor/meteor';
-import { useTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSnackBar } from '../../store/SnackBarContext';
+import { useSnackBar } from '../../context/SnackBarContext';
 import { useStyles } from './useStyles';
 
 export const Login = () => {
   const classes = useStyles();
   const history = useHistory();
-  const user = useTracker(() => Meteor.user());
   const { updateSnackBarMessage } = useSnackBar();
 
   const [email, setEmail] = React.useState('');
@@ -17,6 +15,11 @@ export const Login = () => {
 
   const handleLoginSubmit = (event) => {
     event.preventDefault();
+
+    if (!email || !password) {
+      updateSnackBarMessage(`Please don't forget to provide an email and password!`);
+      return;
+    }
 
     Meteor.loginWithPassword(email, password, (error) => {
       if (!error) {
@@ -95,11 +98,19 @@ export const Login = () => {
             </Grid>
             <Grid item className={classes.gridItem}>
               <Box display="flex" flexDirection="row nowrap" alignItems="center" justifyContent="center">
+                <Link
+                  underline="none"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    history.push('/register');
+                  }}
+                >
+                  <Button size="small" color="primary" variant="text" className={classes.submit}>
+                    Register
+                  </Button>
+                </Link>
                 <Button type="submit" size="small" color="primary" variant="contained" className={classes.submit}>
                   Login
-                </Button>
-                <Button href="/register" size="small" color="primary" variant="text" className={classes.submit}>
-                  Register
                 </Button>
               </Box>
             </Grid>

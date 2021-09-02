@@ -19,6 +19,6 @@ Meteor.methods({
     check(comment, String);
     check(emailId, String);
 
-    CommentsCollection.insert({ text: comment.trim(), emailId, createdAt: new Date() });
+    CommentsCollection.insert({ text: comment, emailId, createdAt: new Date() });
   },
 });

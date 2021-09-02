@@ -1,7 +1,7 @@
 import { MuiThemeProvider } from '@material-ui/core';
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { SnackBarProvider } from '../store/SnackBarContext';
+import { SnackBarProvider } from '../context/SnackBarContext';
 import { theme } from './../themes/theme';
 import { DiscussionBoard } from './DiscussionBoard/DiscussionBoard';
 import { Login } from './LandingPage/Login';

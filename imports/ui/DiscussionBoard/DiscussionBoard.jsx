@@ -1,16 +1,24 @@
 import { Box, Button, Card, CssBaseline, Grid, Paper, TextField, Typography } from '@material-ui/core';
 import { useTracker } from 'meteor/react-meteor-data';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { CommentsCollection } from '../../db/collections';
-import { Comments } from './Comments';
+import { Comment } from './Comment';
 import { useStyles } from './useStyles';
 
 export const DiscussionBoard = () => {
   Meteor.subscribe('postAllComments');
+
   const classes = useStyles();
+  const history = useHistory();
   const user = useTracker(() => Meteor.user());
 
+  if (!user) {
+    history.push('/');
+  }
+
   const [comment, setComment] = React.useState('');
+  const comments = useTracker(() => CommentsCollection.find({}, { sort: { createdAt: -1 } }).fetch());
 
   const handleCommentSubmit = (event) => {
     event.preventDefault();
@@ -20,7 +28,7 @@ export const DiscussionBoard = () => {
 
     setComment('');
   };
-  const comments = useTracker(() => CommentsCollection.find({}, { sort: { createdAt: -1 } }).fetch());
+
   return (
     <Grid
       container
@@ -78,7 +86,7 @@ export const DiscussionBoard = () => {
           </Grid>
           <Grid item className={classes.gridItem}>
             {comments.map((comment) => (
-              <Comments key={comment._id} comment={comment} />
+              <Comment key={comment._id} comment={comment} />
             ))}
           </Grid>
         </Grid>
